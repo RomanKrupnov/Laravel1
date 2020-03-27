@@ -11,16 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('main');
-});
-Route::get('/main', function () {
-    return view('main');
-});
-Route::get('/about', function () {
-    return view('about');
+Route::group(
+    [
+        'prefix'=> 'admin',
+        'namespace'=> 'Admin',
+        'as'=>'admin.'
+
+    ],function (){
+    Route::get('/','HomeController@index')->name('index');
+    Route::get('/deleteNews','HomeController@deleteNews')->name('deleteNews');
+    Route::get('/addNews','HomeController@addNews')->name('addNews');
 });
 
-Route::get('/news', function () {
-    return view('news');
-});
+Route::get('/','HomeController@index')->name('main');
+Route::get('/about','AboutController@index')->name('about');
+
+
+Route::get('/news','NewsController@index')->name('news');
+Route::get('/newsOne/{id}','NewsController@indexOne')->name('newsOne');
+
+
+Route::get('/category','CategoryController@index')->name('category');
+Route::get('/categoryOne/{id}','CategoryController@indexOne')->name('categoryOne');
