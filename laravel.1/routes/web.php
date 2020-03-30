@@ -25,11 +25,21 @@ Route::group(
 
 Route::get('/','HomeController@index')->name('main');
 Route::get('/about','AboutController@index')->name('about');
+Route::get('/auth','AuthController@index')->name('auth');
+Route::get('/registration','RegistrationController@index')->name('registration');
+
+Route::group([
+    'prefix' => 'news',
+    'as' => 'news.'
+], function () {
+    Route::get('/', 'NewsController@index')->name('index');
+    Route::get('/one/{id}', 'NewsController@indexOne')->name('one');
+    Route::group([
+        'as' => 'category.'
+    ], function () {
+        Route::get('/category','CategoryController@index')->name('index');
+        Route::get('/categoryOne/{slug}','CategoryController@show')->name('show');
+    });
+});
 
 
-Route::get('/news','NewsController@index')->name('news');
-Route::get('/newsOne/{id}','NewsController@indexOne')->name('newsOne');
-
-
-Route::get('/category','CategoryController@index')->name('category');
-Route::get('/categoryOne/{id}','CategoryController@indexOne')->name('categoryOne');

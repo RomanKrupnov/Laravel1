@@ -8,9 +8,19 @@ use App\Category;
 class CategoryController extends Controller
 {
     public function index(){
-        return view('category')->with('category',Category::getCategory());
+        return view('news.category')->with('category',Category::getCategory());
     }
     public function indexOne($id){
-        return view('categoryOne')->with('category',Category::getCategoryId($id))->with('news',News::getNewsCategoryId($id));
+        return view('news.categoryOne', [
+            'category' => Category::getCategoryId($id),
+            'news' => News::getNewsCategoryId($id)
+        ]);
+    }
+
+    public function show($slug){
+        return view('news.categoryOne')->
+        with('news',News::getNewsByCategorySlug($slug))->
+        with('category',Category::getCategoryName($slug));
+
     }
 }
