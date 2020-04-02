@@ -6,12 +6,29 @@
     @include('menu')
 @endsection
 @section('content')
-    @if (!$news['isPrivate'])
-        <h3> {{ $news['title'] }}</h3>
-        <h4> {{ $news['text'] }}</h4>
-    @else
-        <h2>У вас нет доступа к этой новости</h2>
-    @endif
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('news.index') }}">News</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('news.one', $news['id'])}}">{{ $news['title'] }}</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                    @if (!$news['isPrivate'])
+                        <h3> {{ $news['title'] }}</h3>
+                        <h4> {{ $news['text'] }}</h4>
+                    @else
+                        <h2>У вас нет доступа к этой новости</h2>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer')

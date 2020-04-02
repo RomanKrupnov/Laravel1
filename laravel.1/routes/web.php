@@ -20,10 +20,10 @@ Route::group(
     ],function (){
     Route::get('/','HomeController@index')->name('index');
     Route::get('/deleteNews','HomeController@deleteNews')->name('deleteNews');
-    Route::get('/addNews','HomeController@addNews')->name('addNews');
+    Route::match(['post','get'],'/addNews','HomeController@addNews')->name('addNews');
 });
 
-Route::get('/','HomeController@index')->name('main');
+Route::get('/','HomeController@index')->name('index');
 Route::get('/about','AboutController@index')->name('about');
 Route::get('/auth','AuthController@index')->name('auth');
 Route::get('/registration','RegistrationController@index')->name('registration');
@@ -43,3 +43,7 @@ Route::group([
 });
 
 
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

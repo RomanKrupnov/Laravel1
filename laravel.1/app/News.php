@@ -100,4 +100,5 @@ class News
         return $newsResult;
     }
 
+
 }

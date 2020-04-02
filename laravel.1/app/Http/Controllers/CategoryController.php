@@ -21,6 +21,5 @@ class CategoryController extends Controller
         return view('news.categoryOne')->
         with('news',News::getNewsByCategorySlug($slug))->
         with('category',Category::getCategoryName($slug));
-
     }
 }
