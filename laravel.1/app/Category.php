@@ -3,50 +3,43 @@
 namespace App;
 
 use App\News;
+
 class Category
 {
-    private static $category = [
-        1=>[
-            'id' => 1,
-            'title' => 'Спорт',
-            'slug'=>'sport',
-        ],
-        2=>[
-            'id' => 2,
-            'title' => 'Экономика',
-            'slug'=>'economic',
-        ],
-        3=>[
-            'id' => 3,
-            'title' => 'Политика',
-            'slug'=>'politic',
-        ],
-        4=>[
-            'id' => 4,
-            'title' => 'Мировые новости',
-            'slug'=>'world-news',
-        ],
-    ];
+    private static $category;
 
-
-    public static function getCategory() {
+    public static function getCategory()
+    {
+        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
+        static::$category = $json2;
         return static::$category;
     }
 
-    public static function getCategoryId($id) {
-    return array_key_exists($id, static::$category) ? static::$category[$id] : null;
+    public static function getCategoryId($id)
+    {
+        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
+        static::$category = $json2;
+        return array_key_exists($id, static::$category) ? static::$category[$id] : null;
     }
-    public static function getCategoryIdBySlug($slug){
+
+    public static function getCategoryIdBySlug($slug)
+    {
+        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
+        static::$category = $json2;
         $id = null;
-        foreach (static::$category as $categories ){
-            if($categories['slug'] == $slug){
-                 $id = $categories['id'];
+        foreach (static::$category as $categories) {
+            if ($categories['slug'] == $slug) {
+                $id = $categories['id'];
                 break;
             }
         }
         return $id;
     }
-    public static function getCategoryName($slug){
+
+    public static function getCategoryName($slug)
+    {
+        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
+        static::$category = $json2;
         array_key_exists($slug, static::$category) ? static::$category[$slug] : null;
     }
 

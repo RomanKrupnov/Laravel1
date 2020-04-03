@@ -1,4 +1,3 @@
-
 <?php
 /*
 |--------------------------------------------------------------------------
@@ -13,20 +12,20 @@
 
 Route::group(
     [
-        'prefix'=> 'admin',
-        'namespace'=> 'Admin',
-        'as'=>'admin.'
+        'prefix' => 'admin',
+        'namespace' => 'Admin',
+        'as' => 'admin.'
 
-    ],function (){
-    Route::get('/','HomeController@index')->name('index');
-    Route::get('/deleteNews','HomeController@deleteNews')->name('deleteNews');
-    Route::match(['post','get'],'/addNews','HomeController@addNews')->name('addNews');
+    ], function () {
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::get('/deleteNews', 'HomeController@deleteNews')->name('deleteNews');
+    Route::match(['post', 'get'], '/addNews', 'HomeController@addNews')->name('addNews');
 });
 
-Route::get('/','HomeController@index')->name('index');
-Route::get('/about','AboutController@index')->name('about');
-Route::get('/auth','AuthController@index')->name('auth');
-Route::get('/registration','RegistrationController@index')->name('registration');
+Route::get('/', 'HomeController@index')->name('index');
+Route::get('/about', 'AboutController@index')->name('about');
+Route::get('/auth', 'AuthController@index')->name('auth');
+Route::get('/registration', 'RegistrationController@index')->name('registration');
 
 Route::group([
     'prefix' => 'news',
@@ -37,11 +36,10 @@ Route::group([
     Route::group([
         'as' => 'category.'
     ], function () {
-        Route::get('/category','CategoryController@index')->name('index');
-        Route::get('/categoryOne/{slug}','CategoryController@show')->name('show');
+        Route::get('/category', 'CategoryController@index')->name('index');
+        Route::get('/categoryOne/{slug}', 'CategoryController@show')->name('show');
     });
 });
-
 
 
 Auth::routes();

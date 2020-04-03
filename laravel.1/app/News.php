@@ -3,99 +3,54 @@
 namespace App;
 
 use App\Category;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Static_;
+use Illuminate\Http\UploadedFile;
 
 class News
 {
-    private static $news = [
-        1=>[
-            'id' => 1,
-            'title' => 'WSJ: Покупатели в США и Европе отказываются от саудовской нефти',
-            'text' => 'Многие страны Европы и Соединенные Штаты отказались покупать у
-             Саудовской Аравии нефть, так как ее уже негде хранить. Королевство с трудом
-             находит новых покупателей "черного золота". Об этом пишет газета The Wall Street Journal',
-            'category_id'=>1,
-            'isPrivate'=>false
-        ],
-       2=>[
-            'id' => 2,
-            'title' => 'Мишустин поручил закрыть санатории и курорты с 28 марта',
-            'text' => 'Премьер-министр России Михаил Мишустин поручил приостановить работу заведений
-            кафе и ресторанов, курортов и объектов массового отдыха, сообщается на сайте правительства.
-             Курорты, гостиницы детские лагеря и горнолыжные трассы в России будут закрыты до 1 июня.',
-           'category_id'=>2,
-           'isPrivate'=>false
-        ],
-        3=>[
-            'id' => 3,
-            'title' => 'Минтруд объяснил условия оплаты труда во время нерабочей недели',
-            'text' => 'Как пояснили в ведомстве, если работник находится в отпуске, то нерабочие дни
-             в число дней отпуска не включаются. Кроме того, нерабочие дни не относятся к праздничным,
-             поэтому оплата должна производиться в обычном, а не повышенном размере, добавили в Минтруде.',
-            'category_id'=>3,
-            'isPrivate'=>true
-        ],
-        4=>[
-            'id' => 4,
-            'title' => 'В России за нарушение карантина могут ввести штраф до 1 млн рублей',
-            'text' => 'Москва, 27 марта 2020, 07:01 — REGNUM Максимальный размер штрафа за повторное
-            нарушение режима карантина в условиях возникновения чрезвычайной ситуации, или в зоне ЧС
-             может составить 1 млн рублей для юридических лиц, до 500 тыс. рублей для должностных лиц и
-              до 300 тыс. рублей для граждан.',
-            'category_id'=>4,
-            'isPrivate'=>false
-        ],
-        5=>[
-            'id' => 5,
-            'title' => 'В России образован новый президиум правительства',
-            'text' => 'Согласно документу, опубликованному на сайте правительства, в президиум вошли: председатель
-             кабинета Мишустин, первый вице-премьер Андрей Белоусов, вице-премьер - глава аппарата правительства Дмитрий
-              Григоренко, заместители премьер-министра Юрий Борисов, Виктория Абрамченко, Татьяна Голикова, Алексей
-               Оверчук, Марат Хуснуллин, Дмитрий Чернышенко и вице-премьер, полпред президента РФ в Дальневосточном
-                федеральном округе Юрий Трунев.',
-            'category_id'=>1,
-            'isPrivate'=>false
-        ],
-        6=>[
-            'id' => 6,
-            'title' => 'Путин поручил приравнять пособие по нетрудоспособности к МРОТ',
-            'text' => 'Президент России Владимир Путин поручил правительству приравнять минимальный размер пособия
-             по временной нетрудоспособности к минимальному размеру оплаты труда (МРОТ). Список поручений президента
-              опубликован на сайте Кремля.',
-            'category_id'=>2,
-            'isPrivate'=>false
-        ],
-        7=>[
-            'id' => 7,
-            'title' => 'Пауло Дибала заявил, что излечился от коронавируса',
-            'text' => 'Нападающий "Ювентуса" и сборной Аргентины Пауло Дибала рассказал о том, как проходит
-             его лечение от коронавируса. Футболист признался, что ему уже гораздо лучше и он даже готов
-              приступить к тренировкам.',
-            'category_id'=>3,
-            'isPrivate'=>false
-        ],
-    ];
-    public static function getNews() {
+
+
+    private static $news;
+
+    public static function getNews()
+    {
+        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
+        static::$news = $json;
         return static::$news;
     }
-    public static function getNewsId($id)   {
-    return array_key_exists($id, static::$news) ? static::$news[$id] : null;
+
+    public static function getNewsId($id)
+    {
+        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
+        static::$news = $json;
+        return array_key_exists($id, static::$news) ? static::$news[$id] : null;
     }
-    public static function getNewsCategoryId($id){
-        $newsResult=[];
-        foreach (static::$news as $new){
-            if ($new['category_id'] == $id){
-                $newsResult[]=$new;
+
+    public static function getNewsCategoryId($id)
+    {
+        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
+        static::$news = $json;
+        $newsResult = [];
+        foreach (static::$news as $new) {
+            if ($new['category_id'] == $id) {
+                $newsResult[] = $new;
             }
         }
         return $newsResult;
     }
-    public static function getNewsByCategorySlug($slug){
-        $id= Category::getCategoryIdBySlug($slug);
-        $newsResult=[];
+
+    public static function getNewsByCategorySlug($slug)
+    {
+        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
+        static::$news = $json;
+        $id = Category::getCategoryIdBySlug($slug);
+        $newsResult = [];
         foreach (static::$news as $item)
-            if($item['category_id'] == $id){
-                $newsResult[]=$item;
+            if ($item['category_id'] == $id) {
+                $newsResult[] = $item;
             }
         return $newsResult;
     }
