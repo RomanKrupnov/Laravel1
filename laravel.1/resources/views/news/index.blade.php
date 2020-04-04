@@ -22,7 +22,7 @@
 
                         @forelse ($news as $item)
                             <li>{{ $item['title']  }}
-                                @if (!$item['isPrivate'])
+                                @if ($item['isPrivate'] == "false")
                                     <a href="{{route('news.one', $item['id'])}} ">Перейти к новости</a>
                                 @endif
                             </li>

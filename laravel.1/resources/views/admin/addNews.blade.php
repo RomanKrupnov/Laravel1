@@ -35,11 +35,11 @@
                         </div>
 
                         <div class="form-group">
-                            <select class="custom-select" name="category"  required>
+                            <select class="custom-select" name="category_id"  required>
                                 <option>Категория новости</option>
                                 @forelse($category as $cat)
 
-                                    <option @if($cat['id'] == old('category')) selected @endif
+                                    <option @if($cat['id'] == old('category_id')) selected @endif
                                         value="{{ $cat['id'] }}"> {{$cat['title']}}</option>
                                 @empty
                                     <h3>Нет категории</h3>
@@ -47,12 +47,17 @@
                             </select>
                             <div class="invalid-feedback">Выберите категорию</div>
                         </div>
-
-                        <div class="custom-control custom-radio">
-                            <input @if(old('isPrivate')==1) checked @endif type="checkbox" class="custom-control-input" id="customIsPrivate"
-                                   name="isPrivate" value="1">
-                            <label class="custom-control-label" for="customIsPrivate">
-                                Новость только для зарегистрированных пользователей</label>
+                        <div class="form-check">
+                            <input @if(old('isPrivate') == 0) checked @endif class="form-check-input" type="radio" name="isPrivate" id="exampleRadios1" value="false" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                Не приватная новость
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input @if(old('isPrivate')== 1) checked @endif class="form-check-input" type="radio" name="isPrivate" id="exampleRadios2" value="true">
+                            <label class="form-check-label" for="exampleRadios2">
+                                Приватная новость
+                            </label>
                         </div>
 
                         <button type="submit" class="btn btn-primary" style="margin-left:30vw;margin-bottom: 30px;">

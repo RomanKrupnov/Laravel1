@@ -13,8 +13,27 @@ class HomeController extends Controller
     {
         return view('admin.index');
     }
+    public function addNews(Request $request){
+        if($request->isMethod('post')){
 
-    public function addNews(Request $request)
+            $newsData = \Illuminate\Support\Facades\File::get(base_path() .'/storage/jsonNews.txt');
+            $newsData = json_decode($newsData, true);
+            $next_id = end($newsData);
+            $next_id = $next_id['id']+1;
+            $inputData = $request->except(['_token']);
+            $inputData['id'] = $next_id;
+            array_push($newsData, $inputData);
+            \Illuminate\Support\Facades\File::put(base_path() .'/storage/jsonNews.txt',
+                json_encode($newsData, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
+            return redirect()->route('news.index');
+        }
+        return view('admin.addNews')->with(
+            'category', Category::getCategory());
+
+
+    }
+
+   /* public function addNews(Request $request)
     {
         if ($request->isMethod('POST')) {
             $request->flashOnly('id', 'title', 'text', 'category', 'isPrivate');
@@ -25,7 +44,7 @@ class HomeController extends Controller
         return view('admin.addNews')->with(
             'category', Category::getCategory());
 
-    }
+    }*/
 
     public function deleteNews()
     {
