@@ -21,7 +21,7 @@
                     <h1 style="margin-top: 20px;margin-left: auto;margin-right: auto;font-size: 55px;">Добавление
                         новости</h1>
 
-                    <form method="POST" class="was-validated" action="{{ route('admin.addNews') }}"
+                    <form method="POST" class="was-validated" enctype="multipart/form-data" action="{{ route('admin.addNews') }}"
                           style="width: 800px !important;margin-left: auto;margin-right: auto;">
                         @csrf
                         <div class="form-group">
@@ -34,28 +34,34 @@
                             <textarea name="text" class="form-control" rows="5" id="exampleInputText">{{ old('text') }}</textarea>
                         </div>
 
-                        <div class="form-group">
+                          <div class="form-group">
                             <select class="custom-select" name="category_id"  required>
                                 <option>Категория новости</option>
                                 @forelse($category as $cat)
 
-                                    <option @if($cat['id'] == old('category_id')) selected @endif
-                                        value="{{ $cat['id'] }}"> {{$cat['title']}}</option>
+                                    <option @if($cat->id == old('category_id')) selected @endif
+                                        value="{{ $cat->id }}"> {{$cat->title}}</option>
                                 @empty
                                     <h3>Нет категории</h3>
                                 @endforelse
                             </select>
                             <div class="invalid-feedback">Выберите категорию</div>
                         </div>
+                         <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputPhotoNews" name="image"
+                                   value="{{ old('image') }}" required>
+                            <label class="custom-file-label" for="inputPhotoNews">Добавьте фотографию к новости</label>
+                            <div class="invalid-feedback">Прикрепите фотографию к новости</div>
+                        </div>
                         <div class="form-check">
-                            <input @if(old('isPrivate') == 0) checked @endif class="form-check-input" type="radio" name="isPrivate" id="exampleRadios1" value="false" checked>
-                            <label class="form-check-label" for="exampleRadios1">
+                            <input @if(old('isPrivate') == 0)  @endif class="form-check-input" type="radio" name="isPrivate" id="isPrivate" value=0 checked>
+                            <label class="form-check-label" for="isPrivate">
                                 Не приватная новость
                             </label>
                         </div>
                         <div class="form-check">
-                            <input @if(old('isPrivate')== 1) checked @endif class="form-check-input" type="radio" name="isPrivate" id="exampleRadios2" value="true">
-                            <label class="form-check-label" for="exampleRadios2">
+                            <input @if(old('isPrivate')== 1)  @endif class="form-check-input" type="radio" name="isPrivate" id="isPrivate" value=1>
+                            <label class="form-check-label" for="isPrivate">
                                 Приватная новость
                             </label>
                         </div>

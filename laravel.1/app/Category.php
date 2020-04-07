@@ -3,6 +3,7 @@
 namespace App;
 
 use App\News;
+use Illuminate\Support\Facades\File;
 
 class Category
 {
@@ -10,22 +11,20 @@ class Category
 
     public static function getCategory()
     {
-        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
-        static::$category = $json2;
+        static::$category = json_decode(File::get(base_path() .'/storage/jsonCategory.txt'), true);
+
         return static::$category;
     }
 
     public static function getCategoryId($id)
     {
-        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
-        static::$category = $json2;
+        static::$category = json_decode(File::get(base_path() .'/storage/jsonCategory.txt'), true);
         return array_key_exists($id, static::$category) ? static::$category[$id] : null;
     }
 
     public static function getCategoryIdBySlug($slug)
     {
-        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
-        static::$category = $json2;
+        static::$category = json_decode(File::get(base_path() .'/storage/jsonCategory.txt'), true);
         $id = null;
         foreach (static::$category as $categories) {
             if ($categories['slug'] == $slug) {
@@ -38,8 +37,7 @@ class Category
 
     public static function getCategoryName($slug)
     {
-        $json2 = json_decode(file_get_contents('..\storage\jsonCategory.txt'), true);
-        static::$category = $json2;
+        static::$category = json_decode(File::get(base_path() .'/storage/jsonCategory.txt'), true);
         array_key_exists($slug, static::$category) ? static::$category[$slug] : null;
     }
 

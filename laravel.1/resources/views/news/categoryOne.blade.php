@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    {{ $category['slug'] }}
+
 @endsection
 @section('menu')
     @include('menu')
@@ -20,9 +20,11 @@
 
                     </div>
                     @forelse ($news as $item)
-                        <a href=" {{ route('news.one', $item['id'])  }}"
+                        <div style="background-image: url({{ $item['image'] ?? asset('storage/news.jpg') }});height: 120px;
+                            width: 120px;background-position: center; background-size: cover;background-repeat: no-repeat;"></div>
+                        <a href=" {{ route('news.one', $item->id)  }}"
                            style="text-decoration: none; color: black;margin-right: 20px; font-size: 20px">
-                            <h3>{{ $item['title'] }}</h3></a>
+                            <h3>{{ $item->title }}</h3></a>
                     @empty
                         <h3>Нет новостей</h3>
                     @endforelse

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    {{ $news['title'] }}
+    {{ $news->title }}
 @endsection
 @section('menu')
     @include('menu')
@@ -15,13 +15,18 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('news.index') }}">News</a></li>
-                                <li class="breadcrumb-item"><a href="{{route('news.one', $news['id'])}}">{{ $news['title'] }}</a></li>
+                                <li class="breadcrumb-item"><a
+                                        href="{{route('news.one', $news->id)}}">{{ $news->title }}</a></li>
                             </ol>
                         </nav>
                     </div>
-                    @if (!$news['isPrivate'])
-                        <h3> {{ $news['title'] }}</h3>
-                        <h4> {{ $news['text'] }}</h4>
+
+                    @if ($news->isPrivate == 0)
+                        <div
+                            style="background-image: url({{ $news->image ?? asset('storage/news.jpg') }});height: 200px;width: 200px;
+                                background-position: center; background-size: cover;background-repeat: no-repeat;"></div>
+                        <h3> {{ $news->title }}</h3>
+                        <h4> {{ $news->text }}</h4>
                     @else
                         <h2>У вас нет доступа к этой новости</h2>
                     @endif
@@ -32,7 +37,8 @@
 @endsection
 
 @section('footer')
-    <div class="footer" style="list-style: none; display: flex; height: 80px; background-color: #adb5bd; text-align: center;"></div>
+    <div class="footer"
+         style="list-style: none; display: flex; height: 80px; background-color: #adb5bd; text-align: center;"></div>
 @endsection
 
 

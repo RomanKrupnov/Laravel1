@@ -11,28 +11,23 @@ use Illuminate\Http\UploadedFile;
 
 class News
 {
-
-
     private static $news;
 
     public static function getNews()
     {
-        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
-        static::$news = $json;
+        static::$news = json_decode(File::get(base_path() .'/storage/jsonNews.txt'), true);
         return static::$news;
     }
 
     public static function getNewsId($id)
     {
-        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
-        static::$news = $json;
+        static::$news = json_decode(File::get(base_path() .'/storage/jsonNews.txt'), true);
         return array_key_exists($id, static::$news) ? static::$news[$id] : null;
     }
 
     public static function getNewsCategoryId($id)
     {
-        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
-        static::$news = $json;
+        static::$news = json_decode(File::get(base_path() .'/storage/jsonNews.txt'), true);
         $newsResult = [];
         foreach (static::$news as $new) {
             if ($new['category_id'] == $id) {
@@ -44,8 +39,7 @@ class News
 
     public static function getNewsByCategorySlug($slug)
     {
-        $json = json_decode(file_get_contents('..\storage\jsonNews.txt'), true);
-        static::$news = $json;
+        static::$news = json_decode(File::get(base_path() .'/storage/jsonNews.txt'), true);
         $id = Category::getCategoryIdBySlug($slug);
         $newsResult = [];
         foreach (static::$news as $item)

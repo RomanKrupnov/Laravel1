@@ -21,8 +21,8 @@
                     <ul style="display: flex;list-style: none; margin-bottom: 50px;">
                         @forelse($category as $item)
                             <li style="margin-right: 20px; font-size: 20px">
-                                <a href="{{ route('news.category.show', $item['slug'])  }}" style="text-decoration: none; color: black;">
-                                    {{ $item['title'] }}</a> </li>
+                                <a href="{{ route('news.category.show', $item->slug)  }}" style="text-decoration: none; color: black;">
+                                    {{ $item->title }}</a> </li>
                         @empty
                             <h3>Нет категорий</h3>
                         @endforelse
