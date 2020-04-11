@@ -10,23 +10,16 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = DB::table('news')->get();
+        $news = News::query()->where('id', '<>', 0)->paginate(3);
         return view('news.index')->with('news', $news);
-        //return view('news.index')->with('news',News::getNews());
     }
 
-    public function indexOne($id)
+    public function show($id)
     {
-        $news = DB::table('news')->find($id);
+        $news = News::query()->find($id);
         if (!empty($news)) {
-            return view('news.one')->with('news', $news);
+            return view('news.show')->with('news', $news);
         } else return redirect()->route('news.index');
-
-        //return view('news.one')->with('news',News::getNewsId($id));
     }
 
-    public function indexCategory($id)
-    {
-        return view('news.categoryOne')->with('news', News::getNewsCategoryId($id));
-    }
 }

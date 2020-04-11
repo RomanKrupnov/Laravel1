@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCatalogTable extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateCatalogTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('title')->comment('название категории');
             $table->string('slug')->comment('Slug категории');
             $table->timestamp('created_at')->useCurrent()->comment('Время создания новости');
             $table->timestamp('updated_at')->useCurrent()->comment('Время редактирования новости');
-
-            //$table->timestamps();
         });
     }
 
@@ -31,6 +29,6 @@ class CreateCatalogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog');
+        Schema::dropIfExists('categories');
     }
 }

@@ -29,13 +29,15 @@
                                 @endif
                                 {{ $item->title  }}
                                 @if ($item->isPrivate == 0)
-                                    <a href="{{route('news.one', $item->id)}} ">Перейти к новости</a>
+                                    <a href="{{route('news.show', $item->id)}} ">Перейти к новости</a>
                                 @endif
                             </li>
                         @empty
                             <h3>Нет новостей</h3>
                         @endforelse
+                        {{ $news->links() }}
                     </ul>
+
                 </div>
             </div>
         </div>

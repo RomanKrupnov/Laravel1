@@ -17,9 +17,15 @@ Route::group(
         'as' => 'admin.'
 
     ], function () {
-    Route::get('/', 'HomeController@index')->name('index');
-    Route::get('/deleteNews', 'HomeController@deleteNews')->name('deleteNews');
-    Route::match(['post', 'get'], '/addNews', 'HomeController@addNews')->name('addNews');
+    Route::get('/', 'NewsController@index')->name('index'); //Отображение новостей в админке
+    Route::group([
+        'prefix' => 'news'
+    ], function(){
+        Route::get( '/edit/{news}', 'NewsController@edit')->name('edit'); //Редактирование новостей в админке
+        Route::post( '/update/{news}', 'NewsController@update')->name('update');// Сохранение редактирования в БД
+        Route::get('/destroy/{news}', 'NewsController@destroy')->name('destroy');// Удаление новости и з БД
+        Route::match(['post', 'get'], '/addNews', 'NewsController@create')->name('addNews'); //Добавление новой новости
+    });
 });
 
 Route::get('/', 'HomeController@index')->name('index');
@@ -32,7 +38,7 @@ Route::group([
     'as' => 'news.'
 ], function () {
     Route::get('/', 'NewsController@index')->name('index');
-    Route::get('/one/{id}', 'NewsController@indexOne')->name('one');
+    Route::get('/one/{news}', 'NewsController@show')->name('show');
     Route::group([
         'as' => 'category.'
     ], function () {

@@ -1,6 +1,10 @@
 @extends('layouts.main')
 @section('title')
-
+    @forelse($category as $item)
+    {{ $item->title }}
+    @empty
+    Без категории
+    @endforelse
 @endsection
 @section('menu')
     @include('menu')
@@ -22,12 +26,13 @@
                     @forelse ($news as $item)
                         <div style="background-image: url({{ $item['image'] ?? asset('storage/news.jpg') }});height: 120px;
                             width: 120px;background-position: center; background-size: cover;background-repeat: no-repeat;"></div>
-                        <a href=" {{ route('news.one', $item->id)  }}"
+                        <a href=" {{ route('news.show', $item->id)  }}"
                            style="text-decoration: none; color: black;margin-right: 20px; font-size: 20px">
                             <h3>{{ $item->title }}</h3></a>
                     @empty
                         <h3>Нет новостей</h3>
                     @endforelse
+                    {{ $news->links() }}
                 </div>
             </div>
         </div>

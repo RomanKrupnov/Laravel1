@@ -9,30 +9,20 @@ use App\Category;
 class CategoryController extends Controller
 {
     public function index(){
-        $category = DB::table('catalog')->get();
+        $category = Category::query()->where('id', '<>', 0)->paginate(3);
         return view('news.category')->with('category',$category);
     }
     public function indexOne($id){
-        $category = DB::table('catalog')->get();
+        $category = DB::table('category')->get();
         return view('news.categoryOne','category',$category);
-        /*return view('news.categoryOne', [
-            'category' => Category::getCategoryId($id),
-            'news' => News::getNewsCategoryId($id)
-        ]);*/
     }
 
     public function show($slug){
-        //SELECT * FROM `news` WHERE `category_id` = (SELECT `id` FROM `catalog` WHERE `slug`='politic')
-      // $cat = DB::table('catalog')->select('id')->where('slug','=',$slug);
-        $news = DB::table('news')->where('category_id','=', '1')->get();
+        $category = Category::query()->select(['id', 'title'])->where('slug', $slug)->get();
+        $news = News::query()
+            ->where('category_id', $category[0]->id)->paginate(3);
 
-   return view('news.categoryOne')->with('news',$news);
+   return view('news.categoryOne')->with('news',$news)->with('category',$category);
 
     }
-    /*public function show($slug){
-   return view('news.categoryOne')->
-        with('news',News::getNewsByCategorySlug($slug))->
-        with('category',Category::getCategoryName($slug));
-
-    }*/
 }

@@ -27,6 +27,8 @@
                             <h3>Нет категорий</h3>
                         @endforelse
                     </ul>
+                    <br>
+                    {{ $category->links() }}
                 </div>
             </div>
         </div>

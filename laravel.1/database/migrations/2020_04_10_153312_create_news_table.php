@@ -8,6 +8,7 @@ class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
+     * Schema::create('news', function (Blueprint $table) {
      *
      * @return void
      */
@@ -17,12 +18,12 @@ class CreateNewsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('title')->comment('Заголовок');
             $table->text('text')->comment('Текст новости');
-            $table->boolean('isPrivate')->default(0)->comment('Приватность новости');
+            $table->boolean('isPrivate')->default(false)->comment('Приватность новости');
             $table->string('image')->nullable(true)->comment('Фотография');
-            $table->bigInteger('category_id')->nullable(false)->comment('Категория новости');
+            //$table->bigInteger('category_id')->nullable(false)->comment('Категория новости');
             $table->timestamp('created_at')->useCurrent()->comment('Время создания новости');
             $table->timestamp('updated_at')->useCurrent()->comment('Время редактирования новости');
-            //$table->timestamps();
+            //$table->foreign('category_id')->references('id')->on('category');
         });
     }
 

@@ -16,7 +16,7 @@
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('news.index') }}">News</a></li>
                                 <li class="breadcrumb-item"><a
-                                        href="{{route('news.one', $news->id)}}">{{ $news->title }}</a></li>
+                                        href="{{route('news.show', $news->id)}}">{{ $news->title }}</a></li>
                             </ol>
                         </nav>
                     </div>

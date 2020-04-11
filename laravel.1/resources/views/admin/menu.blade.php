@@ -4,6 +4,3 @@
 <li class="nav-item">
     <a class="nav-link {{request()->routeIs('admin.addNews')? 'active':''}}"
        href="{{ route('admin.addNews') }}">Добавить новость</a></li>
-<li class="nav-item">
-    <a class="nav-link {{request()->routeIs('admin.deleteNews')? 'active':''}}"
-       href="{{ route('admin.deleteNews') }}">Удалить новость</a></li>

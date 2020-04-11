@@ -19,7 +19,30 @@
                         </nav>
 
                     </div>
-                    <h1 style="margin-top: 17vw; margin-bottom: 10%; margin-left: 30vw; font-size: 55px;">Админка</h1>
+                    <ul style="flex-wrap: wrap; list-style: none; margin-bottom: 50px; width: 1000px;">
+
+                        @forelse ($news as $item)
+                            <li style="margin-bottom: 20px;">  @if ($item->image == null)
+                                    <img src="storage/news.jpg" alt="Новости" style="width:120px; height:100px;">
+                                @else <img src="{{$item->image}}" class="photo_card" style="width:120px;
+                                     height:100px;" alt="{{ $item->title  }}">
+                                @endif
+                                {{ $item->title  }}
+                                @if ($item->isPrivate == 0)
+                                    <a href="{{route('news.show', $item)}} ">Перейти к новости</a>
+                                @endif <br>
+                                <a href="{{ route('admin.edit', $item) }}" style="text-decoration: none;">
+                                <button type="button" style="background-color: #2a9055;"
+                                        class="btn btn-primary">Редактировать</button> </a>
+                                <a href="{{ route('admin.destroy', $item) }}" style="text-decoration: none;">
+                                    <button type="button" style="background-color: #b91d19;"
+                                                    class="btn btn-primary">Удалить</button> </a>
+                            </li>
+                        @empty
+                            <h3>Нет новостей</h3>
+                        @endforelse
+                        {{ $news->links() }}
+                    </ul>
                 </div>
             </div>
         </div>

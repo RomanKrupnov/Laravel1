@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CatalogSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,9 +11,8 @@ class CatalogSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('catalog')->insert($this->getData());
+        DB::table('categories')->insert($this->getData());
     }
-
     private function getData(): array
     {
         $faker = Faker\Factory::create('ru_RU');
@@ -24,7 +23,7 @@ class CatalogSeeder extends Seeder
                 'slug'=> 'politic'
             ],
             [
-                'title' => 'Мировая ролитика',
+                'title' => 'Мировая политика',
                 'slug'=> 'worldPolitic'
             ],
             [
