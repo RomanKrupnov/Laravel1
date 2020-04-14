@@ -12,13 +12,9 @@ class CategoryController extends Controller
         $category = Category::query()->where('id', '<>', 0)->paginate(3);
         return view('news.category')->with('category',$category);
     }
-    public function indexOne($id){
-        $category = DB::table('category')->get();
-        return view('news.categoryOne','category',$category);
-    }
 
     public function show($slug){
-        $category = Category::query()->select(['id', 'title'])->where('slug', $slug)->get();
+        $category = Category::query()->select(['id', 'category'])->where('slug', $slug)->get();
         $news = News::query()
             ->where('category_id', $category[0]->id)->paginate(3);
 

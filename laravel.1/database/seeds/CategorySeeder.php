@@ -19,43 +19,43 @@ class CategorySeeder extends Seeder
 
         $data = [
             [
-                'title' => 'Политика',
+                'category' => 'Политика',
                 'slug'=> 'politic'
             ],
             [
-                'title' => 'Мировая политика',
+                'category' => 'Мировая политика',
                 'slug'=> 'worldPolitic'
             ],
             [
-                'title' => 'Экономика',
+                'category' => 'Экономика',
                 'slug'=> 'economic'
             ],
             [
-                'title' => 'Банки',
+                'category' => 'Банки',
                 'slug'=> 'banks'
             ],
             [
-                'title' => 'Региональные новости',
+                'category' => 'Региональные новости',
                 'slug'=> 'region'
             ],
             [
-                'title' => 'Валюты',
+                'category' => 'Валюты',
                 'slug'=> 'currency'
             ],
             [
-                'title' => 'Спорт',
+                'category' => 'Спорт',
                 'slug'=> 'sport'
             ],
             [
-                'title' => 'Медицина',
+                'category' => 'Медицина',
                 'slug'=> 'medical'
             ],
             [
-                'title' => 'Армия',
+                'category' => 'Армия',
                 'slug'=> 'army'
             ],
             [
-                'title' => 'Погода',
+                'category' => 'Погода',
                 'slug'=> 'weather'
             ]
 

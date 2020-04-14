@@ -4,3 +4,12 @@
 <li class="nav-item">
     <a class="nav-link {{request()->routeIs('admin.addNews')? 'active':''}}"
        href="{{ route('admin.addNews') }}">Добавить новость</a></li>
+<li class="nav-item">
+    <a class="nav-link {{request()->routeIs('admin.index')? 'active':''}}"
+       href="{{ route('admin.index') }}">Работа с новостями</a></li>
+<li class="nav-item">
+    <a class="nav-link {{request()->routeIs('admin.сindex')? 'active':''}}"
+       href="{{ route('admin.cindex') }}">Работа с категориями</a></li>
+<li class="nav-item">
+    <a class="nav-link {{request()->routeIs('admin.addCategory')? 'active':''}}"
+       href="{{ route('admin.addCategory') }}">Добавить категорию</a></li>

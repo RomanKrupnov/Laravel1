@@ -14,7 +14,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('auth') }}">Sign in</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('login') }}">Login</a></li>
                         </ol>
                     </nav>
                     <form method="POST" action="{{ route('login') }}">

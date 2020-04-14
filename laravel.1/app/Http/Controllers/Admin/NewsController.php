@@ -13,7 +13,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::query()->where('id', '<>', 0)->paginate(3);
+        $news = News::query()->paginate(3);
         return view('admin.index', ['news' => $news]);
 
     }
@@ -28,12 +28,18 @@ class NewsController extends Controller
                 $path = Storage::putFile('public/images', $request->file('image'));
                 $url = Storage::url($path);
             }
-            $news->fill($request->all())->save();
-            return redirect()->route('admin.index')->with('success', 'Новость успешно создана!');
+            $data = $this->validate($request, News::rules(),[],News::attributeNames());
+            $result = $news->fill($data)->save();
+            if ($result) {
+                return redirect()->route('admin.index')->with('success', 'Новость успешно создана!');
+            } else {
+                $request->flash();
+                return redirect()->route('admin.addNews')->with('error', 'Ошибка добавления новости!');
+            }
         }
 
         return view('admin.addNews', [
-            'category' => Category::query()->select(['id', 'title'])->get(),
+            'category' => Category::query()->select(['id', 'category'])->get(),
             'news' => $news
         ]);
     }
@@ -42,7 +48,7 @@ class NewsController extends Controller
     {
         return view('admin.addNews', [
             'news' => $news,
-            'category' => Category::query()->select(['id', 'title'])->get()
+            'category' => Category::query()->select(['id', 'category'])->get()
         ]);
     }
 
@@ -54,9 +60,14 @@ class NewsController extends Controller
                 $url = Storage::url($path);
                 $news->image = $url;
             }
-            $news->fill($request->all());
-            $news->save();
-            return redirect()->route('admin.index')->with('success', 'Новость успешно изменена!');
+            $data = $this->validate($request, News::rules(),[],News::attributeNames());
+            $result = $news->fill($data)->save();
+            if ($result) {
+                return redirect()->route('admin.index')->with('success', 'Новость успешно обновлена!');
+            } else {
+                $request->flash();
+                return redirect()->route('admin.addNews')->with('error', 'Ошибка обновления новости!');
+            }
         }
     }
 

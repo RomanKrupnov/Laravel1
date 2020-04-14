@@ -26,6 +26,16 @@ Route::group(
         Route::get('/destroy/{news}', 'NewsController@destroy')->name('destroy');// Удаление новости и з БД
         Route::match(['post', 'get'], '/addNews', 'NewsController@create')->name('addNews'); //Добавление новой новости
     });
+    Route::group([
+        'prefix' => 'category'
+        ], function (){
+        Route::get('/categoryIndex','CategoryController@cindex')->name('cindex');
+        Route::get( '/editCategory/{category}', 'CategoryController@edit')->name('editС');
+        Route::post( '/update/{category}', 'CategoryController@update')->name('updateС');
+        Route::get('/destroy/{category}', 'CategoryController@destroy')->name('destroyС');
+        Route::match(['post', 'get'], '/addCategory', 'CategoryController@create')->name('addCategory');
+
+    });
 });
 
 Route::get('/', 'HomeController@index')->name('index');
@@ -49,5 +59,3 @@ Route::group([
 
 
 Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');

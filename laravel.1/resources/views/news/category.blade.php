@@ -22,7 +22,7 @@
                         @forelse($category as $item)
                             <li style="margin-right: 20px; font-size: 20px">
                                 <a href="{{ route('news.category.show', $item->slug)  }}" style="text-decoration: none; color: black;">
-                                    {{ $item->title }}</a> </li>
+                                    {{ $item->category }}</a> </li>
                         @empty
                             <h3>Нет категорий</h3>
                         @endforelse

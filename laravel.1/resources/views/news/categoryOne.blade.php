@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title')
     @forelse($category as $item)
-    {{ $item->title }}
+    {{ $item->category }}
     @empty
     Без категории
     @endforelse
