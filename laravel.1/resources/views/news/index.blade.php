@@ -17,8 +17,7 @@
                         </nav>
 
                     </div>
-                    <h1 style="margin-top: 15px; margin-bottom: 10%;text-align: center; font-size: 55px;">Последние
-                        новости</h1>
+                    <h1 style="margin-top: 15px; margin-bottom: 10%;text-align: center; font-size: 55px;">Последние  новости</h1>
                     <ul style="flex-wrap: wrap; list-style: none; margin-bottom: 50px; width: 1000px;">
 
                         @forelse ($news as $item)

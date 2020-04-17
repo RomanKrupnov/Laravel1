@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Работа с каталогами
+    Работа с пользователями
 @endsection
 @section('menu')
     @include('admin.menu')
@@ -14,23 +14,21 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Catalog Edit</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}">User Edit</a></li>
                             </ol>
                         </nav>
 
                     </div>
-                    <h1 style="text-align: center;">Работа с каталогами</h1>
+                    <h1 style="text-align: center;">Работа с аккаунтами пользователей</h1>
                     <ul style="flex-wrap: wrap; list-style: none; margin-bottom: 50px; width: 1000px;">
 
                         <ul style="list-style: none; margin-bottom: 50px;">
-                            @forelse($category as $item)
+                            @forelse($user as $item)
+                                @if($item->role == false)
                                 <li style="margin-right: 20px; font-size: 20px">
-                                    <a href="{{ route('news.category.show', $item->slug)  }}" style="text-decoration: none; color: black;">
-                                        {{ $item->category }}</a>
-                                    <br>
-                                    <form action="{{ route('admin.category.destroy', $item) }}" method="post">
-                                        <a href="{{ route('admin.category.edit', $item) }}" style="text-decoration: none;">
+                                    <h4>{{ $item->name }}</h4> <h4>{{ $item->email }}</h4>
+                                    <form action="{{ route('admin.user.destroy', $item)  }}" method="post">
+                                        <a href="{{ route('admin.user.update', $item) }}" style="text-decoration: none;">
                                             <button type="button" style="background-color: #2a9055;"
                                                     class="btn btn-primary">Редактировать</button> </a>
                                         <button type="submit" class="btn btn-danger">Удалить</button>
@@ -38,12 +36,13 @@
                                         @method('DELETE')
                                     </form>
                                 </li>
+                                @endif
                             @empty
-                                <h3>Нет категорий</h3>
+                                <h3>Нет пользователей</h3>
                             @endforelse
                         </ul>
                         <br>
-                        {{ $category->links() }}
+                        {{ $user->links() }}
                     </ul>
                 </div>
             </div>

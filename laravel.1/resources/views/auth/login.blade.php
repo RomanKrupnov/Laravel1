@@ -17,6 +17,7 @@
                             <li class="breadcrumb-item"><a href="{{ route('login') }}">Login</a></li>
                         </ol>
                     </nav>
+                    <h4> login: admin@admin.ru password: 123 </h4>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

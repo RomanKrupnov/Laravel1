@@ -14,27 +14,27 @@ Route::group(
     [
         'prefix' => 'admin',
         'namespace' => 'Admin',
-        'as' => 'admin.'
-
+        'as' => 'admin.',
+        'middleware'=> ['auth','role']
     ], function () {
-    Route::get('/', 'NewsController@index')->name('index'); //Отображение новостей в админке
+    Route::match(['get','post'], '/profile', 'ProfileController@update')->name('updateProfile');
+    Route::get('/', 'NewsController@index')->name('index');
+    Route::group([
+        'prefix' => 'user'
+    ], function(){
+        //Route::get('/edit', 'AboutController@update')->name('edit');
+        //Route::get('/index', 'AboutController@index')->name('index');
+        Route::resource('user', 'UserController')->except('show','store');
+    });
     Route::group([
         'prefix' => 'news'
     ], function(){
-        Route::get( '/edit/{news}', 'NewsController@edit')->name('edit'); //Редактирование новостей в админке
-        Route::post( '/update/{news}', 'NewsController@update')->name('update');// Сохранение редактирования в БД
-        Route::get('/destroy/{news}', 'NewsController@destroy')->name('destroy');// Удаление новости и з БД
-        Route::match(['post', 'get'], '/addNews', 'NewsController@create')->name('addNews'); //Добавление новой новости
+        Route::resource('news', 'NewsController')->except('show');
     });
     Route::group([
         'prefix' => 'category'
         ], function (){
-        Route::get('/categoryIndex','CategoryController@cindex')->name('cindex');
-        Route::get( '/editCategory/{category}', 'CategoryController@edit')->name('editС');
-        Route::post( '/update/{category}', 'CategoryController@update')->name('updateС');
-        Route::get('/destroy/{category}', 'CategoryController@destroy')->name('destroyС');
-        Route::match(['post', 'get'], '/addCategory', 'CategoryController@create')->name('addCategory');
-
+        Route::resource('category', 'CategoryController')->except('show');
     });
 });
 

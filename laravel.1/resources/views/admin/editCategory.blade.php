@@ -13,17 +13,18 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.cindex') }}">Category</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.addCategory') }}">
+                                <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Category</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.category.create') }}">
                                         @if($category->id){{__('Edit category')}}@else{{__('Add category')}}@endif</a></li>
                             </ol>
                         </nav>
                     </div>
                     <h1 style="margin-top: 20px;margin-left: auto;margin-right: auto;font-size: 55px;">Редактирование категории</h1>
 
-                    <form enctype="multipart/form-data" method="POST" action="{{ route('admin.updateС',$category) }}"
+                    <form enctype="multipart/form-data" method="POST" action="{{ route('admin.category.update',$category) }}"
                           style="width: 800px !important;margin-left: auto;margin-right: auto;">
                         @csrf
+                        @method('PATCH')
                         <div class="form-group">
                             <label for="categoryTitle">Название категории</label>
                             <input name="category" type="text" class="form-control is-invalid" id="categoryTitle"

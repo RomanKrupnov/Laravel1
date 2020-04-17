@@ -13,18 +13,19 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.cindex') }}"></a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}"></a></li>
                             </ol>
                         </nav>
 
                     </div>
                     <h1 style="text-align: center;">Добавление новой категории новостей</h1>
-                    <form  method="POST" action="{{ route('admin.addCategory') }}" enctype="multipart/form-data"
+                    <form  method="POST" action="{{ route('admin.category.store') }}"
                           style="width: 800px !important;margin-left: auto;margin-right: auto;">
                         @csrf
+
                         <div class="form-group">
                             <label for="categoryTitle">Название категории</label>
-                            <input name="category" type="text" class="form-control is-invalid" id="categoryTitle"
+                            <input name="category" type="text" class="form-control" id="categoryTitle"
                                    value="{{ $categories->category ?? old('category') }}">
                             @if ($errors->has('category'))
                                 <div class="alert alert-danger" role="alert">
@@ -36,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label for="categorySlug">Slug транскрипция (без пробелов)</label>
-                            <input name="slug" type="text" class="form-control is-invalid" id="categorySlug"
+                            <input name="slug" type="text" class="form-control" id="categorySlug"
                                    value="{{ $categories->slug ?? old('slug') }}">
                             @if ($errors->has('slug'))
                                 <div class="alert alert-danger" role="alert">

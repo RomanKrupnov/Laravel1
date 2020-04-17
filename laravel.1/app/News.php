@@ -21,7 +21,7 @@ class News extends Model
             'text' => 'required|min:20',
             'category_id' => "required|exists:{$tableNameCategory},id",
             'image' => 'mimes:jpeg,bmp,gif,png|max:2000',
-            'isPrivate[]' => ['required|in_array:[0, 1]']
+            'isPrivate[]' => 'integer'
         ];
     }
 

@@ -13,7 +13,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.addNews') }}">
+                                <li class="breadcrumb-item"><a href="{{ route('admin.news.create') }}">
                                         @if($news->id){{__('Edit News')}}@else{{__('Add News')}}@endif</a></li>
                             </ol>
                         </nav>
@@ -21,12 +21,13 @@
                     </div>
                     <h1 style="margin-top: 20px;margin-left: auto;margin-right: auto;font-size: 55px;">@if($news->id){{__('Редактирование')}}@else{{__('Добавление')}}@endif новости</h1>
 
-                    <form enctype="multipart/form-data" method="POST" action="@if(!$news->id){{ route('admin.addNews') }}@else{{ route('admin.update', $news) }}@endif"
+                    <form enctype="multipart/form-data" method="POST" action="@if(!$news->id){{ route('admin.news.store') }}@else{{ route('admin.news.update', $news) }}@endif"
                           style="width: 800px !important;margin-left: auto;margin-right: auto;">
                         @csrf
+                        @if($news->id) @method('PATCH') @endif
                         <div class="form-group">
                             <label for="newsTitle">Название новости</label>
-                            <input name="title" type="text" class="form-control is-invalid" id="newsTitle" value="{{ $news->title ?? old('title') }}">
+                            <input name="title" type="text" class="form-control" id="newsTitle" value="{{ old('title') ?? $news->title }}">
                             @if ($errors->has('title'))
                                 <div class="alert alert-danger" role="alert">
                                     @foreach ($errors->get('title') as $error)
@@ -38,8 +39,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText">Текст новости</label>
-                            <textarea name="text" class="form-control is-invalid" rows="3" id="exampleInputText">
-                                {{ $news->text ?? old('text') }}</textarea>
+                            <textarea name="text" class="form-control" rows="3" id="exampleInputText">
+                                {{ old('text') ?? $news->text}}</textarea>
                             @if ($errors->has('text'))
                                 <div class="alert alert-danger" role="alert">
                                     @foreach ($errors->get('text') as $error)
