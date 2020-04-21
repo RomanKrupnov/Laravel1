@@ -11,12 +11,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8 card">
                 <h2>Аккаунт пользователя</h2>
-                <form method="post" action="{{ route('admin.updateProfile') }}">
+                <form method="post" action="{{ route('updateProfile') }}">
                     @csrf
                     <div class="form-group">
                         <label for="userName">Имя пользователя</label>
                         <input name='name' type="text" class="form-control" id="userName"
-                               value="{{ old('title') ?? $user->name }}">
+                               value="{{ $user->name ?? old('title') ?? "" }}">
                         @if ($errors->has('name'))
                             <div class="alert alert-danger" role="alert">
                                 @foreach ($errors->get('name') as $error)

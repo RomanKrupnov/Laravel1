@@ -27,7 +27,7 @@
                                      height:100px;" alt="{{ $item->title  }}">
                                 @endif
                                 {{ $item->title  }}
-                                @if ($item->isPrivate == 0)
+                                @if ($item->isPrivate == 0 || Auth::check())
                                     <a href="{{route('news.show', $item->id)}} ">Перейти к новости</a>
                                 @endif
                             </li>

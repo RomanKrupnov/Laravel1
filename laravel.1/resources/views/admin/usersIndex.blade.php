@@ -14,7 +14,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}">User Edit</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.updateUser') }}">User Edit</a></li>
                             </ol>
                         </nav>
 
@@ -24,19 +24,19 @@
 
                         <ul style="list-style: none; margin-bottom: 50px;">
                             @forelse($user as $item)
-                                @if($item->role == false)
                                 <li style="margin-right: 20px; font-size: 20px">
                                     <h4>{{ $item->name }}</h4> <h4>{{ $item->email }}</h4>
-                                    <form action="{{ route('admin.user.destroy', $item)  }}" method="post">
-                                        <a href="{{ route('admin.user.update', $item) }}" style="text-decoration: none;">
-                                            <button type="button" style="background-color: #2a9055;"
-                                                    class="btn btn-primary">Редактировать</button> </a>
-                                        <button type="submit" class="btn btn-danger">Удалить</button>
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+                                    @if ($item->role)
+                                        <a href="{{route('admin.toggleAdmin', $item)}}"><button type="button" class="btn btn-danger">Не админ</button></a>
+                                    @else
+                                        <a href="{{route('admin.toggleAdmin', $item)}}"> <button type="button" class="btn btn-success">Админ</button></a>
+                                    @endif
+                                    <a href="{{ route('admin.destroy', $item) }}" style="text-decoration: none;">
+                                        <button type="button"
+                                                class="btn btn-primary btn-danger">Удалить</button> </a>
+
                                 </li>
-                                @endif
+
                             @empty
                                 <h3>Нет пользователей</h3>
                             @endforelse

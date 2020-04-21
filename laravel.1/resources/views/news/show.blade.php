@@ -21,7 +21,7 @@
                         </nav>
                     </div>
 
-                    @if ($news->isPrivate == 0)
+                    @if ($news->isPrivate == 0 || Auth::check())
                         <div
                             style="background-image: url({{ $news->image ?? asset('storage/news.jpg') }});height: 200px;width: 200px;
                                 background-position: center; background-size: cover;background-repeat: no-repeat;"></div>

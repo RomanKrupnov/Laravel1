@@ -15,29 +15,37 @@ Route::group(
         'prefix' => 'admin',
         'namespace' => 'Admin',
         'as' => 'admin.',
-        'middleware'=> ['auth','role']
+        'middleware' => ['auth', 'role']
     ], function () {
-    Route::match(['get','post'], '/profile', 'ProfileController@update')->name('updateProfile');
+    Route::get('/parser', 'ParserController@index')->name('parser');
+    Route::get('/user', 'UserController@index')->name('updateUser');
+    Route::get('/destroy/{user}','UserController@destroy')->name('destroy');
+    Route::get('/user/toggleAdmin/{user}', 'UserController@toggleAdmin')->name('toggleAdmin');
     Route::get('/', 'NewsController@index')->name('index');
     Route::group([
         'prefix' => 'user'
-    ], function(){
+    ], function () {
+
         //Route::get('/edit', 'AboutController@update')->name('edit');
         //Route::get('/index', 'AboutController@index')->name('index');
-        Route::resource('user', 'UserController')->except('show','store');
+        //Route::resource('user', 'UserController')->except('show','store');
     });
     Route::group([
         'prefix' => 'news'
-    ], function(){
+    ], function () {
         Route::resource('news', 'NewsController')->except('show');
     });
     Route::group([
         'prefix' => 'category'
-        ], function (){
+    ], function () {
         Route::resource('category', 'CategoryController')->except('show');
     });
 });
-
+Route::get('/auth/vk', 'LoginController@loginVK')->name('vkLogin');
+Route::get('/auth/vk/response', 'LoginController@responseVK')->name('vkResponse');
+Route::get('/auth/git', 'LoginController@loginGit')->name('gitLogin');
+Route::get('/auth/git/response', 'LoginController@responseGit')->name('gitResponse');
+Route::match(['get', 'post'], '/profile', 'ProfileController@update')->name('updateProfile');
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/about', 'AboutController@index')->name('about');
 Route::get('/auth', 'AuthController@index')->name('auth');

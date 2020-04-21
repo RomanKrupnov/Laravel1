@@ -39,8 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText">Текст новости</label>
-                            <textarea name="text" class="form-control" rows="3" id="exampleInputText">
-                                {{ old('text') ?? $news->text}}</textarea>
+                            <textarea name="text" class="form-control" rows="3" id="exampleInputText">{{old('text') ?? $news->text ?? ""}}</textarea>
                             @if ($errors->has('text'))
                                 <div class="alert alert-danger" role="alert">
                                     @foreach ($errors->get('text') as $error)
@@ -54,7 +53,7 @@
                             <label for="newsCategory">Категория новости</label>
                             <select name="category_id" class="form-control" id="newsCategory">
                                 @forelse($category as $item)
-                                    <option @if ($item->id == old('id')) selected @endif value="{{ $item->id }}">{{ $item['category'] }}</option>
+                                    <option @if($item->id == old('category_id') ?? $item->id == $news->category_id) selected @endif value="{{ $item->id }}">{{ $item['category'] }}</option>
                                 @empty
                                     <h2>Нет категории</h2>
                                 @endforelse

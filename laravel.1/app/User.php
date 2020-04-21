@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role',
+        'name', 'email', 'password', 'role','id_in_soc', 'type_auth' , 'avatar',
     ];
 
     /**
@@ -41,6 +41,7 @@ class User extends Authenticatable
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'password' =>['required'],
         ];
     }
 

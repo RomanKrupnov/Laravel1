@@ -60,18 +60,17 @@
                                 </div>
                             </div>
                         </div>
+                        <ul style="list-style: none; display: flex; text-align: center; " class="col-md-8 offset-md-4">
+                            <li style="margin-left:10px;margin-right:10px; font-size: 30px;"><a href="{{ route('vkLogin') }}"><i class="fab fa-vk"></i></a></li>
+                            <li style="margin-left:10px;margin-right:10px; font-size: 30px;"><a href="{{ route('gitLogin') }}"><i class="fab fa-git-square"></i></a></li>
+
+                        </ul>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>
