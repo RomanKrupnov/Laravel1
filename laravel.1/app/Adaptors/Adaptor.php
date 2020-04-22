@@ -4,7 +4,8 @@
 namespace App\Adaptors;
 
 use App\User;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
+use Laravel\Socialite\Two\User as UserOAuth;
+
 
 class Adaptor
 {
@@ -15,6 +16,7 @@ class Adaptor
             ->first();
         if (is_null($userInSystem)) {
             $userInSystem = new User();
+
             if($socName=='vk'){
             $userInSystem->fill([
                 'name' => !empty($user->getName())? $user->getName(): '',
@@ -34,7 +36,9 @@ class Adaptor
                     'type_auth' => 'gitHub',
                     'avatar' => !empty($user->getAvatar())? $user->getAvatar(): ''
                 ]);
+
             }
+
             $userInSystem->save();
         }
         return $userInSystem;

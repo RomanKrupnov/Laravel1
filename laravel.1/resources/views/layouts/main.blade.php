@@ -34,7 +34,11 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" style="display: flex;">
+                        @if(Auth::user()->avatar == '')
+                        <img  src="storage/avatar.png" alt="photo" style="width:40px; height:40px;">
+                        @else<img  src="{{ Auth::user()->avatar }}" alt="Новости" style="width:40px; height:40px;">
+                    @endif
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
