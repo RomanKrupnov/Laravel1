@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+class ProfileController extends Controller
+{
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $errors = [];
+        if ($request->isMethod('post')) {
+
+            $data = $this->validate($request, User::rules());
+            if (Hash::check($request->post('password'), $user->password)) {
+                $user->fill([
+                    'name' => $request->post('name'),
+                    'password' => Hash::make($request->post('newPassword')),
+                    'email' => $request->post('email')
+                ]);
+                $request->session()->flash('success', 'Данные пользователя изменены!');
+                $user->fill($data)->save();
+                return redirect()->route('index');
+            } else {
+                $errors['password'][] = "Неверно введен текущий пароль";
+            }
+            return redirect()->route('updateProfile')->withErrors($errors);
+        }
+
+        return view('profile', [
+            'user' => $user
+        ]);
+    }
+
+
+
+}

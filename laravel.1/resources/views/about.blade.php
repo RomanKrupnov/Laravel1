@@ -1,0 +1,33 @@
+@extends('layouts.main')
+@section('title','О нас')
+@section('menu')
+    @include('menu')
+@endsection
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('about') }}">About</a></li>
+                            </ol>
+                        </nav>
+
+                    </div>
+                    <h1 style="margin-top: 9vw; margin-bottom: 10%;font-size: 55px; text-align: center;">Информация о нас</h1>
+                    <h3>Данный сайт бал создан в целях освоения возможностей фреймворка Laravel.
+                        Познакомиться с основными его функциями, научиться создавать несложные структуры.
+                        Дата создания апрель 2020года. Разработчик Крупнов Роман,  благодарит своего наставника/учителя Олега Арестова,
+                        за помощь в освоении и написании кода.  </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('footer')
+    <div class="footer" style="list-style: none; display: flex; height: 80px; background-color: #adb5bd; text-align: center;"></div>
+@endsection
