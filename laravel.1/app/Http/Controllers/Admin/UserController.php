@@ -12,9 +12,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = User::query()->where('id', '!=', Auth::id())->paginate(2);
+        $user = User::query()->where('id', '!=', Auth::id())->paginate(5);
         return view('admin.usersIndex', ['user' => $user]);
     }
+
     public function toggleAdmin(User $user)
     {
         if ($user->id != Auth::id()) {
@@ -23,42 +24,39 @@ class UserController extends Controller
 
             return redirect()->back()->with('success', 'Права изменены');
         } else {
-            return redirect()->route('admin.updateUser')->with('error', 'Ошибка');
+            return redirect()->route('admin.indexUser')->with('error', 'Ошибка');
         }
-
     }
-    public function destroy(User $user){
+
+    public function destroy(User $user)
+    {
 
         $user->delete();
         return redirect()->back()->with('success', 'Аккаунт успешно удален!');
     }
-/*
-    public function delete(User $user){
-        $user->delete();
-        return redirect()->route('admin.updateUser')->with('success', 'Аккаунт успешно удален!');
-    }
+
     public function edit(Request $request, User $user)
     {
-        return view('admin.editUser', [
-            'user' => $user
-        ]);
+        return view('admin.editUser', ['user' => $user]);
     }
-    public function update(Request $request)
+
+    public function update(Request $request, User $user)
     {
-        $user = Auth::user();
-        /*   if (Hash::check($request['password'], $user->password)) {
-                $user->fill([
-                    'name' => $request['name'],
-                    'password' => Hash::make($request['newPassword']),
-                    'email' => $request['email']
-                ]);
-                $request->session()->flash('success', 'Данные пользователя изменены!');
-                $data = $this->validate($request, User::rules());
-                $user->fill($data)->save();
-                return redirect()->route('index');
+        if ($request->isMethod('post')) {
+            $data = $this->validate($request, User::rules());
+            $result = $user->fill([$data,
+                'name' => $request['name'],
+                'password' => Hash::make($request['password']),
+                'email' => $request['email']
+            ])->save();
+            if ($result) {
+                return redirect()->route('admin.indexUser')->with('success', 'Аккаунт успешно обновлен!');
             }
-        return view('admin.editUser', [
-            'user' => $user
-        ]);
-    }*/
+            else {
+                $request->flash();
+                return redirect()->route('admin.editUser')->with('error', 'Ошибка обновления аккаунта!');
+            }
+        }
+
+    }
 }

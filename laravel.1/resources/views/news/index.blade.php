@@ -23,7 +23,7 @@
                         @forelse ($news as $item)
                             <li style="margin-bottom: 20px;">  @if ($item->image == null)
                                     <img src="storage/news.jpg" alt="Новости" style="width:120px; height:100px;">
-                                @else <img src="{{$item->image}}" class="photo_card" style="width:120px;
+                                @else <img src="{{$item->image}}" class="photo_card" style="width:150px;
                                      height:100px;" alt="{{ $item->title  }}">
                                 @endif
                                 {{ $item->title  }}

@@ -4,7 +4,7 @@
     @include('admin.menu')
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container" style="min-height: 500px;">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -38,8 +38,8 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText">Текст новости</label>
-                            <textarea name="text" class="form-control" rows="3" id="exampleInputText">{{old('text') ?? $news->text ?? ""}}</textarea>
+                            <label for="textEdit">Текст новости</label>
+                            <textarea name="text" class="form-control" rows="3" id="textEdit">{!! empty(old()) ? $news->text : old('text') !!}</textarea>
                             @if ($errors->has('text'))
                                 <div class="alert alert-danger" role="alert">
                                     @foreach ($errors->get('text') as $error)
@@ -101,6 +101,18 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('/js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
+    <script>
+          CKEDITOR.replace('textEdit', options);
+    </script>
 @endsection
 
 @section('footer')

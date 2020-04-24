@@ -6,7 +6,7 @@
     @include('admin.menu')
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container" style="min-height: 500px;">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -32,7 +32,7 @@
                                     <form action="{{ route('admin.category.destroy', $item) }}" method="post">
                                         <a href="{{ route('admin.category.edit', $item) }}" style="text-decoration: none;">
                                             <button type="button" style="background-color: #2a9055;"
-                                                    class="btn btn-primary">Редактировать</button> </a>
+                                                    class="btn btn-success">Редактировать</button> </a>
                                         <button type="submit" class="btn btn-danger">Удалить</button>
                                         @csrf
                                         @method('DELETE')

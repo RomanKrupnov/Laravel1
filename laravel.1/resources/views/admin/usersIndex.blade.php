@@ -6,7 +6,7 @@
     @include('admin.menu')
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container" style="min-height: 500px;">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -14,7 +14,8 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.updateUser') }}">User Edit</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.indexUser') }}">Users Edit</a></li>
                             </ol>
                         </nav>
 
@@ -34,6 +35,9 @@
                                     <a href="{{ route('admin.destroy', $item) }}" style="text-decoration: none;">
                                         <button type="button"
                                                 class="btn btn-primary btn-danger">Удалить</button> </a>
+                                    <a href="{{ route('admin.editUser', $item) }}" style="text-decoration: none;">
+                                        <button type="button"
+                                                class="btn btn-primary btn-success">Редактировать</button> </a>
 
                                 </li>
 

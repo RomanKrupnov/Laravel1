@@ -17,18 +17,22 @@ Route::group(
         'as' => 'admin.',
         'middleware' => ['auth', 'role']
     ], function () {
-    Route::get('/parser', 'ParserController@index')->name('parser');
-    Route::get('/user', 'UserController@index')->name('updateUser');
-    Route::get('/destroy/{user}','UserController@destroy')->name('destroy');
+
+    Route::get('/user', 'UserController@index')->name('indexUser');
+    Route::get('/destroy/{user}', 'UserController@destroy')->name('destroy');
     Route::get('/user/toggleAdmin/{user}', 'UserController@toggleAdmin')->name('toggleAdmin');
     Route::get('/', 'NewsController@index')->name('index');
+    Route::get('/userEdit/{user}', 'UserController@edit')->name('editUser');
+    Route::post('/update/{user}', 'UserController@update')->name('update');
     Route::group([
-        'prefix' => 'user'
+        'prefix' => 'parser'
     ], function () {
-
-        //Route::get('/edit', 'AboutController@update')->name('edit');
-        //Route::get('/index', 'AboutController@index')->name('index');
-        //Route::resource('user', 'UserController')->except('show','store');
+        Route::match(['post','get'],'/addResources', 'ParserController@create')->name('addResources');
+        Route::get('/parser', 'ParserController@parse')->name('parser');
+        Route::get('/index', 'ParserController@index')->name('resourcesIndex');
+        Route::get('/destroy/{resources}', 'ParserController@destroy')->name('destroy');
+        Route::get('/resourcesEdit/{resources}', 'ParserController@edit')->name('editResources');
+        Route::post('/updateResources/{resources}', 'ParserController@update')->name('updateResources');
     });
     Route::group([
         'prefix' => 'news'

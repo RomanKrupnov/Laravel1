@@ -4,7 +4,7 @@
     @include('admin.menu')
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container" style="min-height: 500px;">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -13,7 +13,8 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}"></a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Edit Category</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.category.create') }}">Add category</a></li>
                             </ol>
                         </nav>
 

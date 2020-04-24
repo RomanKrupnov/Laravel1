@@ -20,7 +20,7 @@ class AlterTableUsersAddColumnSocial extends Migration
             $table->enum('type_auth', ['site', 'vk', 'fb','gitHub'])
                 ->default('site')
                 ->comment('Тип используемой авторизации');
-            $table->string('avatar', 180)->default('')->comment('Фото из аккаунта');
+            $table->string('avatar', 180)->default('')->nullable()->comment('Фото из аккаунта');
             $table->index('id_in_soc');
         });
     }

@@ -2,53 +2,78 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
-use App\News;
+use App\Jobs\NewsParsing;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Resources;
+use App\Services\XMLParserService;
+use Carbon\Carbon;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class ParserController extends Controller
 {
-    public function index()
+    public function parse(XMLParserService $parserService)
     {
-        $category= new Category();
-        $resource = 'https://news.yandex.ru/sport.rss';
-        preg_match('/(\/[a-z]+\.rss)/',$resource,$found);
-        $slug = substr($found[0],1,-4);
-        $xml = XmlParser::Load($resource);
-
-        $data_category = $xml->parse(
-            [
-                'name'=>['uses'=>'channel.title'],
-                'slug'=>$slug,
-                'description'=>['uses'=>'channel.description'],
-                'image'=>['uses'=>'channel.image.url']
-            ]);
-        $data_news = $xml->parse(
-            [
-                'news'=>['uses'=>'channel.item[title,link,guid,description,pubDate]']
-            ]);
-
-        $is_exists = $category::query()->where('slug',$data_category['slug'])->value('id');
-        if(!$is_exists){
-            $category->fill($data_category)->save();
+        $start = date('c');
+        $link = Resources::query()->get();
+        foreach ($link as $itemLink) {
+            NewsParsing::dispatch($itemLink['link']);
         }
-        $categoryId = $category::query()->where('slug',$data_category['slug'])->value('id');
-        $news = array_map(function ($new) use ($categoryId){
-            return array(
-                'title'=>$new['title'],
-                'text'=>$new['description'],
-                'category_id'=>$categoryId
-            );
-        }, $data_news['news']);
-        foreach ($news as $new){
-            News::query()->insert($new);
-        }
-        return redirect()->route('admin.news.index')->with('success', 'Новости успешно добавлены!');
+        return redirect()->back()->with('success', 'Новости успешно добавлены!');
     }
 
+    public function index()
+    {
+        $resources = Resources::query()->paginate(5);
+        return view('admin.resourcesIndex', ['resources' => $resources]);
+    }
 
+    public function create(Request $request)
+    {
+        $resources = new Resources();
+        if ($request->isMethod('post')) {
+            $data = $this->validate($request, Resources::rules(), [], Resources::attributeNames());
+            $result = $resources->fill([$data,
+                'link' => $request['link']
+            ])->save();
+            if ($result) {
+                return redirect()->route('admin.resourcesIndex')->with('success', 'Ссылка успешно добавлена!');
+            } else {
+                $request->flash();
+                return redirect()->route('admin.createResources')->with('error', 'Ошибка добавления ссылки!');
+            }
+        }
+         return view('admin.addResources');
 
+    }
 
+    public function edit(Request $request, Resources $resources)
+    {
+        return view('admin.editResources', ['resources' => $resources]);
+    }
+
+    public function update(Request $request, Resources $resources)
+    {
+        if ($request->isMethod('post')) {
+            $data = $this->validate($request, Resources::rules(), [], Resources::attributeNames());
+            $result = $resources->fill([$data,
+                'link' => $request['link']
+            ])->save();
+
+            if ($result) {
+                return redirect()->route('admin.resourcesIndex')->with('success', 'Ссылка успешно обновлена!');
+            } else {
+                $request->flash();
+                return redirect()->route('admin.editResources')->with('error', 'Ошибка обновления ссылки!');
+            }
+        }
+
+    }
+
+    public function destroy(Resources $resources)
+    {
+        $resources->delete();
+        return redirect()->back()->with('success', 'Ссылка успешно удалена!');
+    }
 
 }

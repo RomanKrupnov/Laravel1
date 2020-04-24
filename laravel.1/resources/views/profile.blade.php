@@ -10,13 +10,22 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 card">
+                <div class="card-header">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('updateProfile',$user) }}">Profile</a></li>
+                        </ol>
+                    </nav>
+
+                </div>
                 <h2>Аккаунт пользователя</h2>
                 <form method="post" action="{{ route('updateProfile') }}">
                     @csrf
                     <div class="form-group">
                         <label for="userName">Имя пользователя</label>
                         <input name='name' type="text" class="form-control" id="userName"
-                               value="{{ $user->name ?? old('title') ?? "" }}">
+                               value="{{ $user->name ?? old('name') ?? "" }}">
                         @if ($errors->has('name'))
                             <div class="alert alert-danger" role="alert">
                                 @foreach ($errors->get('name') as $error)
@@ -28,7 +37,7 @@
                     <div class="form-group">
                         <label for="userEmail">Email пользователя</label>
                         <input name='email' type="text" class="form-control" id="userEmail"
-                               value="{{ old('title') ?? $user->email }}">
+                               value="{{ old('email') ?? $user->email }}">
                         @if ($errors->has('email'))
                             <div class="alert alert-danger" role="alert">
                                 @foreach ($errors->get('email') as $error)

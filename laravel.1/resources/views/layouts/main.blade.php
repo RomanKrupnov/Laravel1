@@ -36,7 +36,7 @@
                 @else
                     <li class="nav-item dropdown" style="display: flex;">
                         @if(Auth::user()->avatar == '')
-                        <img  src="storage/avatar.png" alt="photo" style="width:40px; height:40px;">
+                        <img  src="/storage/avatar.png" alt="photo" style="width:40px; height:40px;">
                         @else<img  src="{{ Auth::user()->avatar }}" alt="Новости" style="width:40px; height:40px;">
                     @endif
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -47,13 +47,13 @@
                             <a class="dropdown-item" href="{{ route('updateProfile') }}">
                                 {{ __('Profile') }}
                             </a>
+                            @if(Auth::user()->role == 1)<a class="dropdown-item" href="{{ route('admin.index') }}">
+                                {{ __('Admin Panel') }}</a>@endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
-
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
@@ -86,6 +86,7 @@
 <main class="py-4">
     @yield('content')
 </main>
+@yield('footer')
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://kit.fontawesome.com/cf057ede5c.js" crossorigin="anonymous"></script>
 </body>

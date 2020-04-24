@@ -6,7 +6,7 @@
     @include('menu')
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container" style="min-height: 500px;">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -22,11 +22,18 @@
                     </div>
 
                     @if ($news->isPrivate == 0 || Auth::check())
-                        <div
-                            style="background-image: url({{ $news->image ?? asset('storage/news.jpg') }});height: 200px;width: 200px;
-                                background-position: center; background-size: cover;background-repeat: no-repeat;"></div>
-                        <h3> {{ $news->title }}</h3>
-                        <h4> {{ $news->text }}</h4>
+                        <ul style="display: flex;list-style: none;">
+                            <li>
+                                <div
+                                    style="background-image: url({{ $news->image ?? asset('storage/news.jpg') }});height: 200px;width: 200px;
+                                        background-position: center; background-size: cover;background-repeat: no-repeat; display:flex;"></div>
+                            </li>
+                            <li style="margin-left: 20px;"><h3> {{ $news->title }}</h3>
+                                <h4> {!! $news->text !!}</h4>
+                                <a href="{{$news->link}}"><p>Читать в источнике</p></a></li>
+                        </ul>
+
+
                     @else
                         <h2>У вас нет доступа к этой новости</h2>
                     @endif
@@ -35,10 +42,11 @@
         </div>
     </div>
 @endsection
-
 @section('footer')
     <div class="footer"
          style="list-style: none; display: flex; height: 80px; background-color: #adb5bd; text-align: center;"></div>
 @endsection
+
+
 
 

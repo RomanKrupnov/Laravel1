@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $category = Category::query()->paginate(3);
+        $category = Category::query()->paginate(5);
         return view('admin.categoryIndex', ['category' => $category]);
     }
 
@@ -59,5 +60,6 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('admin.category.index')->with('success', 'Новость успешно удалена!');
     }
+
 
 }
